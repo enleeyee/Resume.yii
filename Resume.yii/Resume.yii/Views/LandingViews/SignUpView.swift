@@ -28,30 +28,30 @@ struct SignUpView: View {
                 Text("Create your account")
                     .font(.title)
                     .fontWeight(.bold)
-                    .foregroundColor(.black)
+                    .foregroundColor(CustomColor.dynamicTextColor)
                     .padding(.bottom, 20)
 
-                TextField("first name", text: $firstName)
+                TextField("\(Text("first name").foregroundColor(CustomColor.dynamicTextColor.opacity(0.4)))", text: $firstName)
                     .padding()
-                    .foregroundColor(.black)
+                    .foregroundColor(CustomColor.dynamicTextColor)
                     .background(CustomColor.WhiteBlue)
                     .cornerRadius(10)
                     .frame(width: 280, height: 50)
                     .padding(.bottom, 10)
                     .autocapitalization(.none)
 
-                TextField("last name", text: $lastName)
+                TextField("\(Text("last name").foregroundColor(CustomColor.dynamicTextColor.opacity(0.4)))", text: $lastName)
                     .padding()
-                    .foregroundColor(.black)
+                    .foregroundColor(CustomColor.dynamicTextColor)
                     .background(CustomColor.WhiteBlue)
                     .cornerRadius(10)
                     .frame(width: 280, height: 50)
                     .padding(.bottom, 10)
                     .autocapitalization(.none)
 
-                TextField("email address", text: $email)
+                TextField("\(Text("email address").foregroundColor(CustomColor.dynamicTextColor.opacity(0.4)))", text: $email)
                     .padding()
-                    .foregroundColor(.black)
+                    .foregroundColor(CustomColor.dynamicTextColor)
                     .background(CustomColor.WhiteBlue)
                     .cornerRadius(10)
                     .frame(width: 280, height: 50)
@@ -61,28 +61,27 @@ struct SignUpView: View {
 
                 ZStack(alignment: .trailing) {
                     if isPasswordVisible {
-                        TextField("password", text: $password)
+                        TextField("\(Text("password").foregroundColor(CustomColor.dynamicTextColor.opacity(0.4)))", text: $password)
                             .padding()
                             .background(CustomColor.WhiteBlue)
                             .cornerRadius(10)
-                            .foregroundColor(.black)
                             .frame(width: 280, height: 50)
+                            .foregroundColor(CustomColor.dynamicTextColor)
                             .autocapitalization(.none)
                     } else {
-                        SecureField("password", text: $password)
+                        SecureField("\(Text("password").foregroundColor(CustomColor.dynamicTextColor.opacity(0.4)))", text: $password)
                             .padding()
                             .background(CustomColor.WhiteBlue)
                             .cornerRadius(10)
-                            .foregroundColor(.black)
                             .frame(width: 280, height: 50)
-                            .autocapitalization(.none)
+                            .foregroundColor(CustomColor.dynamicTextColor)
                     }
 
                     Button(action: {
                         isPasswordVisible.toggle()
                     }) {
                         Image(systemName: isPasswordVisible ? "eye.fill" : "eye.slash.fill")
-                            .foregroundColor(.black)
+                            .foregroundColor(CustomColor.dynamicIconColor)
                     }
                     .padding(.trailing, 10)
                 }
@@ -94,7 +93,7 @@ struct SignUpView: View {
                     Text("continue")
                         .frame(width: 280, height: 50)
                         .font(.headline)
-                        .foregroundColor(.black)
+                        .foregroundColor(CustomColor.dynamicTextColor)
                         .background(CustomColor.LightBlue)
                         .cornerRadius(10)
                 }
@@ -102,14 +101,14 @@ struct SignUpView: View {
 
                 HStack {
                     Text("Already have an account?")
-                        .foregroundColor(.black)
+                        .foregroundColor(CustomColor.dynamicTextColor)
                     Button(action: {
                         showLoginPage = true
                     }) {
                         Text("Login")
                             .font(.footnote)
                             .fontWeight(.bold)
-                            .foregroundColor(.black)
+                            .foregroundColor(CustomColor.dynamicTextColor)
                             .underline()
                     }
                 }

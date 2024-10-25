@@ -28,25 +28,27 @@ struct LoginView: View {
                     .fontWeight(.bold)
                     .foregroundColor(CustomColor.dynamicTextColor)
                     .padding(.bottom, 20)
-
-                TextField("email address", text: $email)
+                
+                TextField("\(Text("email address").foregroundColor(CustomColor.dynamicTextColor.opacity(0.4)))", text: $email)
                     .padding()
+                    .foregroundColor(CustomColor.dynamicTextColor)
                     .background(CustomColor.WhiteBlue)
                     .cornerRadius(10)
                     .frame(width: 280, height: 50)
                     .padding(.bottom, 10)
-                    .foregroundColor(CustomColor.dynamicTextColor)
+                    .autocapitalization(.none)
 
                 ZStack(alignment: .trailing) {
                     if isPasswordVisible {
-                        TextField("password", text: $password)
+                        TextField("\(Text("password").foregroundColor(CustomColor.dynamicTextColor.opacity(0.4)))", text: $password)
                             .padding()
                             .background(CustomColor.WhiteBlue)
                             .cornerRadius(10)
                             .frame(width: 280, height: 50)
                             .foregroundColor(CustomColor.dynamicTextColor)
+                            .autocapitalization(.none)
                     } else {
-                        SecureField("password", text: $password)
+                        SecureField("\(Text("password").foregroundColor(CustomColor.dynamicTextColor.opacity(0.4)))", text: $password)
                             .padding()
                             .background(CustomColor.WhiteBlue)
                             .cornerRadius(10)
