@@ -31,9 +31,9 @@ struct ResumeUploadView: View {
                                         Image(systemName: "doc.fill")
                                             .resizable()
                                             .frame(width: 50, height: 70)
-                                            .foregroundColor(.white)
+                                            .foregroundColor(CustomColor.dynamicIconColor)
                                         Text("Upload PDF resume file here")
-                                            .foregroundColor(.white)
+                                            .foregroundColor(CustomColor.dynamicTextColor)
                                             .font(.headline)
                                     }
                                 )
