@@ -9,17 +9,21 @@ struct SplashScreenView: View {
         if isActive {
             LoginView()
         } else {
-            VStack {
-                Image(systemName: "doc.circle.fill")
-                    .resizable()
-                    .frame(width: 72, height: 72)
-                    .foregroundColor(CustomColor.BlueGray)
-                    .shadow(radius: 4)
-                    .padding(.bottom, 40)
-                
-                Text("Resume.yii")
-                    .bold()
-                    .font(.title)
+            ZStack {
+                CustomColor.Background
+                    .ignoresSafeArea()
+                VStack {
+                    Image(systemName: "doc.circle.fill")
+                        .resizable()
+                        .frame(width: 72, height: 72)
+                        .foregroundColor(CustomColor.BlueGray)
+                        .shadow(radius: 4)
+                        .padding(.bottom, 40)
+                    
+                    Text("Resume.yii")
+                        .bold()
+                        .font(.title)
+                }
             }
             .onAppear {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {

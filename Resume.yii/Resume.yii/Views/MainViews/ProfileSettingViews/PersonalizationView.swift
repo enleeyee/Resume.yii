@@ -18,26 +18,31 @@ struct PersonalizationView: View {
                     Section(header: Text("PERSONALIZATION")) {
                         VStack(alignment: .leading) {
                             Text("Temperature: \(String(format: "%.2f", temperature))")
+                                .foregroundColor(CustomColor.dynamicTextColor)
                             Slider(value: $temperature, in: 0...1, step: 0.01)
                         }
                         .listRowBackground(CustomColor.LightBlue)
 
                         VStack(alignment: .leading) {
                             Text("Max Tokens: \(maxTokens)")
+                                .foregroundColor(CustomColor.dynamicTextColor)
                             Stepper(value: $maxTokens, in: 1...2048) {
                                 Text("\(maxTokens)")
+                                    .foregroundColor(CustomColor.dynamicTextColor)
                             }
                         }
                         .listRowBackground(CustomColor.LightBlue)
 
                         VStack(alignment: .leading) {
                             Text("Frequency Penalty: \(String(format: "%.2f", frequencyPenalty))")
+                                .foregroundColor(CustomColor.dynamicTextColor)
                             Slider(value: $frequencyPenalty, in: 0...2, step: 0.01)
                         }
                         .listRowBackground(CustomColor.LightBlue)
 
                         VStack(alignment: .leading) {
                             Text("Presence Penalty: \(String(format: "%.2f", presencePenalty))")
+                                .foregroundColor(CustomColor.dynamicTextColor)
                             Slider(value: $presencePenalty, in: 0...2, step: 0.01)
                         }
                         .listRowBackground(CustomColor.LightBlue)
@@ -54,7 +59,7 @@ struct PersonalizationView: View {
                         dismiss()
                     }) {
                         Image(systemName: "chevron.left")
-                            .foregroundColor(.black)
+                            .foregroundColor(CustomColor.dynamicIconColor)
                     }
                 }
             }

@@ -12,9 +12,9 @@ struct ArchivedResumesView: View {
                 VStack(alignment: .leading, spacing: 20) {
                     HStack {
                         Image(systemName: "magnifyingglass")
-                            .foregroundColor(.gray)
+                            .foregroundColor(CustomColor.dynamicTextColor.opacity(0.4))
                         Text("Search Archive")
-                            .foregroundColor(.gray)
+                            .foregroundColor(CustomColor.dynamicTextColor.opacity(0.4))
                         Spacer()
                     }
                     .padding()
@@ -38,7 +38,7 @@ struct ArchivedResumesView: View {
                         dismiss()
                     }) {
                         Image(systemName: "chevron.left")
-                            .foregroundColor(.black)
+                            .foregroundColor(CustomColor.dynamicIconColor)
                     }
                 }
             }
@@ -54,12 +54,12 @@ struct ArchivedSectionView: View {
         VStack(alignment: .leading, spacing: 10) {
             Text(title)
                 .font(.headline)
-                .foregroundColor(.black)
+                .foregroundColor(CustomColor.dynamicTextColor)
 
             ForEach(chats, id: \.self) { chat in
                 Text(chat)
                     .font(.body)
-                    .foregroundColor(.black)
+                    .foregroundColor(CustomColor.dynamicTextColor)
                     .padding(.vertical, 10)
                 Divider()
                     .background(Color.gray)

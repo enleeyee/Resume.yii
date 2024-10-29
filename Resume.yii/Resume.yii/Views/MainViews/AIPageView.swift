@@ -29,9 +29,9 @@ struct AIPageView: View {
                 
                 Spacer().frame(height: 10)
 
-                TextField("Add link to job application", text: $link)
+                TextField("\(Text("Add link to job application").foregroundColor(CustomColor.dynamicTextColor.opacity(0.4)))", text: $link)
                     .padding()
-                    .foregroundColor(.black)
+                    .foregroundColor(CustomColor.dynamicTextColor)
                     .background(CustomColor.WhiteBlue)
                     .cornerRadius(10)
                     .frame(width: 361, height: 52)
@@ -53,7 +53,7 @@ struct AIPageView: View {
                             .padding()
                             .frame(width: 249, height: 50)
                             .background(CustomColor.LightBlue)
-                            .foregroundColor(.black)
+                            .foregroundColor(CustomColor.dynamicTextColor)
                             .cornerRadius(10)
                             .padding(.horizontal, 40)
                     }

@@ -18,10 +18,10 @@ struct ProfilePageView: View {
                     Section(header: Text("ACCOUNT")) {
                         HStack {
                             Label("Email", systemImage: "envelope")
-                                .foregroundColor(.black)
+                                .foregroundColor(CustomColor.dynamicTextColor)
                             Spacer()
                             Text("example@gmail.com")
-                                .foregroundColor(.gray)
+                                .foregroundColor(CustomColor.dynamicTextColor)
                         }
                         .listRowBackground(CustomColor.LightBlue)
 
@@ -30,10 +30,10 @@ struct ProfilePageView: View {
                         }) {
                             HStack {
                                 Label("Personalization", systemImage: "person")
-                                    .foregroundColor(.black)
+                                    .foregroundColor(CustomColor.dynamicTextColor)
                                 Spacer()
                                 Image(systemName: "chevron.right")
-                                    .foregroundColor(.gray)
+                                    .foregroundColor(CustomColor.dynamicTextColor)
                             }
                         }
                         .listRowBackground(CustomColor.LightBlue)
@@ -43,10 +43,10 @@ struct ProfilePageView: View {
                         }) {
                             HStack {
                                 Label("Data Controls", systemImage: "server.rack")
-                                    .foregroundColor(.black)
+                                    .foregroundColor(CustomColor.dynamicTextColor)
                                 Spacer()
                                 Image(systemName: "chevron.right")
-                                    .foregroundColor(.gray)
+                                    .foregroundColor(CustomColor.dynamicTextColor)
                             }
                         }
                         .listRowBackground(CustomColor.LightBlue)
@@ -56,10 +56,10 @@ struct ProfilePageView: View {
                         }) {
                             HStack {
                                 Label("Archived Resumes", systemImage: "archivebox")
-                                    .foregroundColor(.black)
+                                    .foregroundColor(CustomColor.dynamicTextColor)
                                 Spacer()
                                 Image(systemName: "chevron.right")
-                                    .foregroundColor(.gray)
+                                    .foregroundColor(CustomColor.dynamicTextColor)
                             }
                         }
                         .listRowBackground(CustomColor.LightBlue)
@@ -68,18 +68,25 @@ struct ProfilePageView: View {
                     Section(header: Text("APP")) {
                         HStack {
                             Label("App Language", systemImage: "globe")
-                                .foregroundColor(.black)
+                                .foregroundColor(CustomColor.dynamicTextColor)
                             Spacer()
                             Text("English")
-                                .foregroundColor(.gray)
+                                .foregroundColor(CustomColor.dynamicTextColor)
                         }
                         .listRowBackground(CustomColor.LightBlue)
 
                         Picker(selection: $selectedColorScheme, label: Label("Color Scheme", systemImage: "sun.max")
-                            .foregroundColor(.black)
+                            .foregroundColor(CustomColor.dynamicTextColor)
                         ) {
-                            Text("Light").tag("Light")
-                            Text("Dark").tag("Dark")
+                            Text("Light")
+                                .foregroundColor(CustomColor.dynamicTextColor)
+                                .tag("Light")
+                                .padding()
+                            
+                            Text("Dark")
+                                .foregroundColor(CustomColor.dynamicTextColor)
+                                .tag("Dark")
+                                .padding()
                         }
                         .listRowBackground(CustomColor.LightBlue)
                     }
@@ -89,7 +96,7 @@ struct ProfilePageView: View {
                             showLandingPage = true
                         }) {
                             Label("Log Out", systemImage: "rectangle.portrait.and.arrow.right")
-                                .foregroundColor(.black)
+                                .foregroundColor(CustomColor.dynamicTextColor)
                         }
                         .listRowBackground(CustomColor.LightBlue)
                     }

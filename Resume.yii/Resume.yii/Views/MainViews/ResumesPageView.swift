@@ -23,7 +23,7 @@ struct ResumesPageView: View {
                         HStack {
                             Text(resume.title)
                                 .font(.headline)
-                                .foregroundColor(.black)
+                                .foregroundColor(CustomColor.dynamicTextColor)
                             
                             NavigationLink(destination: ResumeDetailView(resume: resume)) {
                                 EmptyView()
@@ -33,7 +33,7 @@ struct ResumesPageView: View {
                             
                             Text("View")
                                 .font(.headline)
-                                .foregroundColor(.black)
+                                .foregroundColor(CustomColor.dynamicTextColor)
                                 .frame(width: 60, height: 30)
                                 .background(CustomColor.LightBlue)
                                 .cornerRadius(10)
@@ -41,7 +41,7 @@ struct ResumesPageView: View {
                     }
                     .listStyle(InsetGroupedListStyle())
                     .scrollContentBackground(.hidden)
-                    .background(CustomColor.Background)
+                    .background(Color.clear)
                 }
             }
             .navigationTitle("Resumes")
@@ -60,12 +60,12 @@ struct ResumeDetailView: View {
             VStack {
                 Text(resume.title)
                     .font(.largeTitle)
-                    .foregroundColor(.black)
+                    .foregroundColor(CustomColor.dynamicTextColor)
                     .padding(.bottom, 20)
                 
                 Text("Details about \(resume.title)")
                     .font(.body)
-                    .foregroundColor(.black)
+                    .foregroundColor(CustomColor.dynamicTextColor)
                     .padding(.bottom, 20)
                 
                 Spacer()

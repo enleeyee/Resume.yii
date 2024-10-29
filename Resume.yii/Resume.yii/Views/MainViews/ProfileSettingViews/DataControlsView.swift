@@ -15,7 +15,7 @@ struct DataControlsView: View {
                             print("Archive All Chats tapped")
                         }) {
                             Text("Archive All Chats")
-                                .foregroundColor(.primary)
+                                .foregroundColor(CustomColor.dynamicTextColor)
                         }
                         .listRowBackground(CustomColor.LightBlue)
                         
@@ -33,7 +33,7 @@ struct DataControlsView: View {
                             print("Export Data tapped")
                         }) {
                             Text("Export Data")
-                                .foregroundColor(.primary)
+                                .foregroundColor(CustomColor.dynamicTextColor)
                         }
                         .listRowBackground(CustomColor.LightBlue)
 
@@ -57,7 +57,7 @@ struct DataControlsView: View {
                         dismiss()
                     }) {
                         Image(systemName: "chevron.left")
-                            .foregroundColor(.black)
+                            .foregroundColor(CustomColor.dynamicIconColor)
                     }
                 }
             }
