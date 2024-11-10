@@ -1,3 +1,10 @@
+//
+//  ChatGPTRequest.swift
+//  Resume.yii
+//
+//  Created by Enlai Yii on 10/24/24.
+//
+
 struct ChatGPTRequest: Codable {
     let model: String
     let messages: [Message]
