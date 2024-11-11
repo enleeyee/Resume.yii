@@ -20,11 +20,7 @@ struct LoginView: View {
     
     @FocusState private var focus: FocusableField?
     
-    @State private var email = ""
-    @State private var password = ""
-    
     @State private var isPasswordVisible = false
-//    @State private var showSignUpPage = false
     @State private var showUploadPage = false
     
     private func signInWithEmailPassword() {
@@ -57,6 +53,7 @@ struct LoginView: View {
                     .padding(.bottom, 20)
                 
                 TextField("\(Text("email address").foregroundColor(CustomColor.dynamicTextColor.opacity(0.4)))", text: $viewModel.email)
+                    .focused($focus, equals: .email)
                     .padding()
                     .foregroundColor(CustomColor.dynamicTextColor)
                     .background(CustomColor.WhiteBlue)
@@ -68,6 +65,7 @@ struct LoginView: View {
                 ZStack(alignment: .trailing) {
                     if isPasswordVisible {
                         TextField("\(Text("password").foregroundColor(CustomColor.dynamicTextColor.opacity(0.4)))", text: $viewModel.password)
+                            .focused($focus, equals: .password)
                             .padding()
                             .background(CustomColor.WhiteBlue)
                             .cornerRadius(10)
@@ -76,6 +74,7 @@ struct LoginView: View {
                             .autocapitalization(.none)
                     } else {
                         SecureField("\(Text("password").foregroundColor(CustomColor.dynamicTextColor.opacity(0.4)))", text: $viewModel.password)
+                            .focused($focus, equals: .password)
                             .padding()
                             .background(CustomColor.WhiteBlue)
                             .cornerRadius(10)
@@ -108,8 +107,7 @@ struct LoginView: View {
                             .foregroundColor(CustomColor.dynamicTextColor)
                             .background(CustomColor.LightBlue)
                             .cornerRadius(10)
-                    }
-                    else {
+                    } else {
                       ProgressView()
                         .progressViewStyle(CircularProgressViewStyle(tint: .white))
                         .padding(.vertical, 8)
@@ -119,7 +117,6 @@ struct LoginView: View {
                 .padding(.bottom, 20)
                 .disabled(!viewModel.isValid)
                 .frame(maxWidth: .infinity)
-//                .buttonStyle(.borderedProminent)
 
                 HStack {
                     Text("Don’t have an account?")
@@ -143,9 +140,6 @@ struct LoginView: View {
         .fullScreenCover(isPresented: $showUploadPage) {
             ResumeUploadView()
         }
-//        .fullScreenCover(isPresented: $showSignUpPage) {
-//            SignUpView()
-//        }
     }
 }
 

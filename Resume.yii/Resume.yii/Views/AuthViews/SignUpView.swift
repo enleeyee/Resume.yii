@@ -7,15 +7,33 @@
 
 import SwiftUI
 
+private enum FocusableField: Hashable {
+    case firstName
+    case lastName
+    case email
+    case password
+    case confirmPassword
+}
+
 struct SignUpView: View {
+    @EnvironmentObject var viewModel: AuthenticationViewModel
+    @Environment(\.dismiss) var dismiss
+    
+    @FocusState private var focus: FocusableField?
+    
     @State private var firstName = ""
     @State private var lastName = ""
-    @State private var email = ""
-    @State private var password = ""
     
     @State private var isPasswordVisible = false
-    @State private var showLoginPage = false
     @State private var showUploadPage = false
+    
+    private func signUpWithEmailPassword() {
+        Task {
+            if await viewModel.signUpWithEmailPassword() == true {
+                dismiss()
+            }
+        }
+    }
 
     var body: some View {
         ZStack {
@@ -38,25 +56,26 @@ struct SignUpView: View {
                     .foregroundColor(CustomColor.dynamicTextColor)
                     .padding(.bottom, 20)
 
-                TextField("\(Text("first name").foregroundColor(CustomColor.dynamicTextColor.opacity(0.4)))", text: $firstName)
-                    .padding()
-                    .foregroundColor(CustomColor.dynamicTextColor)
-                    .background(CustomColor.WhiteBlue)
-                    .cornerRadius(10)
-                    .frame(width: 280, height: 50)
-                    .padding(.bottom, 10)
-                    .autocapitalization(.none)
+//                TextField("\(Text("first name").foregroundColor(CustomColor.dynamicTextColor.opacity(0.4)))", text: $firstName)
+//                    .padding()
+//                    .foregroundColor(CustomColor.dynamicTextColor)
+//                    .background(CustomColor.WhiteBlue)
+//                    .cornerRadius(10)
+//                    .frame(width: 280, height: 50)
+//                    .padding(.bottom, 10)
+//                    .autocapitalization(.none)
+//
+//                TextField("\(Text("last name").foregroundColor(CustomColor.dynamicTextColor.opacity(0.4)))", text: $lastName)
+//                    .padding()
+//                    .foregroundColor(CustomColor.dynamicTextColor)
+//                    .background(CustomColor.WhiteBlue)
+//                    .cornerRadius(10)
+//                    .frame(width: 280, height: 50)
+//                    .padding(.bottom, 10)
+//                    .autocapitalization(.none)
 
-                TextField("\(Text("last name").foregroundColor(CustomColor.dynamicTextColor.opacity(0.4)))", text: $lastName)
-                    .padding()
-                    .foregroundColor(CustomColor.dynamicTextColor)
-                    .background(CustomColor.WhiteBlue)
-                    .cornerRadius(10)
-                    .frame(width: 280, height: 50)
-                    .padding(.bottom, 10)
-                    .autocapitalization(.none)
-
-                TextField("\(Text("email address").foregroundColor(CustomColor.dynamicTextColor.opacity(0.4)))", text: $email)
+                TextField("\(Text("email address").foregroundColor(CustomColor.dynamicTextColor.opacity(0.4)))", text: $viewModel.email)
+                    .focused($focus, equals: .email)
                     .padding()
                     .foregroundColor(CustomColor.dynamicTextColor)
                     .background(CustomColor.WhiteBlue)
@@ -68,7 +87,8 @@ struct SignUpView: View {
 
                 ZStack(alignment: .trailing) {
                     if isPasswordVisible {
-                        TextField("\(Text("password").foregroundColor(CustomColor.dynamicTextColor.opacity(0.4)))", text: $password)
+                        TextField("\(Text("password").foregroundColor(CustomColor.dynamicTextColor.opacity(0.4)))", text: $viewModel.password)
+                            .focused($focus, equals: .password)
                             .padding()
                             .background(CustomColor.WhiteBlue)
                             .cornerRadius(10)
@@ -76,7 +96,38 @@ struct SignUpView: View {
                             .foregroundColor(CustomColor.dynamicTextColor)
                             .autocapitalization(.none)
                     } else {
-                        SecureField("\(Text("password").foregroundColor(CustomColor.dynamicTextColor.opacity(0.4)))", text: $password)
+                        SecureField("\(Text("password").foregroundColor(CustomColor.dynamicTextColor.opacity(0.4)))", text: $viewModel.password)
+                            .focused($focus, equals: .password)
+                            .padding()
+                            .background(CustomColor.WhiteBlue)
+                            .cornerRadius(10)
+                            .frame(width: 280, height: 50)
+                            .foregroundColor(CustomColor.dynamicTextColor)
+                    }
+
+                    Button(action: {
+                        isPasswordVisible.toggle()
+                    }) {
+                        Image(systemName: isPasswordVisible ? "eye.fill" : "eye.slash.fill")
+                            .foregroundColor(CustomColor.dynamicIconColor)
+                    }
+                    .padding(.trailing, 10)
+                }
+                .padding(.bottom, 10)
+                
+                ZStack(alignment: .trailing) {
+                    if isPasswordVisible {
+                        TextField("\(Text("confirm password").foregroundColor(CustomColor.dynamicTextColor.opacity(0.4)))", text: $viewModel.confirmPassword)
+                            .focused($focus, equals: .confirmPassword)
+                            .padding()
+                            .background(CustomColor.WhiteBlue)
+                            .cornerRadius(10)
+                            .frame(width: 280, height: 50)
+                            .foregroundColor(CustomColor.dynamicTextColor)
+                            .autocapitalization(.none)
+                    } else {
+                        SecureField("\(Text("confirm password").foregroundColor(CustomColor.dynamicTextColor.opacity(0.4)))", text: $viewModel.confirmPassword)
+                            .focused($focus, equals: .confirmPassword)
                             .padding()
                             .background(CustomColor.WhiteBlue)
                             .cornerRadius(10)
@@ -94,23 +145,30 @@ struct SignUpView: View {
                 }
                 .padding(.bottom, 10)
 
-                Button(action: {
-                    showUploadPage = true
-                }) {
-                    Text("continue")
-                        .frame(width: 280, height: 50)
-                        .font(.headline)
-                        .foregroundColor(CustomColor.dynamicTextColor)
-                        .background(CustomColor.LightBlue)
-                        .cornerRadius(10)
+                Button(action: signUpWithEmailPassword) {
+                    if viewModel.authenticationState != .authenticating {
+                        Text("continue")
+                            .frame(width: 280, height: 50)
+                            .font(.headline)
+                            .foregroundColor(CustomColor.dynamicTextColor)
+                            .background(CustomColor.LightBlue)
+                            .cornerRadius(10)
+                    } else {
+                        ProgressView()
+                            .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                            .padding(.vertical, 8)
+                            .frame(maxWidth: .infinity)
+                    }
                 }
                 .padding(.bottom, 20)
+                .disabled(!viewModel.isValid)
+                .frame(maxWidth: .infinity)
 
                 HStack {
                     Text("Already have an account?")
                         .foregroundColor(CustomColor.dynamicTextColor)
                     Button(action: {
-                        showLoginPage = true
+                        viewModel.switchFlow()
                     }) {
                         Text("Login")
                             .font(.footnote)
@@ -126,9 +184,6 @@ struct SignUpView: View {
         }
         .fullScreenCover(isPresented: $showUploadPage) {
             ResumeUploadView()
-        }
-        .fullScreenCover(isPresented: $showLoginPage) {
-            LoginView()
         }
     }
 }

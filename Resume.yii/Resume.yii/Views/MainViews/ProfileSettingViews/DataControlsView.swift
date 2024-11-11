@@ -8,7 +8,18 @@
 import SwiftUI
 
 struct DataControlsView: View {
+    @EnvironmentObject var viewModel: AuthenticationViewModel
     @Environment(\.dismiss) var dismiss
+    
+    @State private var showConfirmationDialog = false
+    
+    private func deleteAccount() {
+      Task {
+        if await viewModel.deleteAccount() == true {
+          dismiss()
+        }
+      }
+    }
 
     var body: some View {
         NavigationStack {
@@ -44,8 +55,7 @@ struct DataControlsView: View {
                         }
                         .listRowBackground(CustomColor.LightBlue)
 
-                        Button(action: {
-                            print("Delete Account tapped")
+                        Button(role: .destructive, action: { showConfirmationDialog.toggle()
                         }) {
                             Text("Delete Account")
                                 .foregroundColor(.red)
@@ -58,6 +68,11 @@ struct DataControlsView: View {
             }
             .navigationTitle("Data Controls")
             .navigationBarTitleDisplayMode(.inline)
+            .confirmationDialog("Deleting your account is permanent. Do you want to delete your account?",
+                                isPresented: $showConfirmationDialog, titleVisibility: .visible) {
+              Button("Delete Account", role: .destructive, action: deleteAccount)
+              Button("Cancel", role: .cancel, action: { })
+            }
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button(action: {
@@ -74,4 +89,5 @@ struct DataControlsView: View {
 
 #Preview {
     DataControlsView()
+        .environmentObject(AuthenticationViewModel())
 }

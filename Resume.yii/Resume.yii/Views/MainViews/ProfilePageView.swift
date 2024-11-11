@@ -8,12 +8,19 @@
 import SwiftUI
 
 struct ProfilePageView: View {
+    @EnvironmentObject var viewModel: AuthenticationViewModel
+    @Environment(\.dismiss) var dismiss
+    
     @State private var selectedColorScheme = "Light"
+    
     @State private var showPersonalization = false
     @State private var showDataControls = false
     @State private var showArchivedResumes = false
-    
     @State private var showLandingPage = false
+
+    private func signOut() {
+      viewModel.signOut()
+    }
 
     var body: some View {
         NavigationStack {
@@ -27,7 +34,7 @@ struct ProfilePageView: View {
                             Label("Email", systemImage: "envelope")
                                 .foregroundColor(CustomColor.dynamicTextColor)
                             Spacer()
-                            Text("example@gmail.com")
+                            Text(viewModel.displayName)
                                 .foregroundColor(CustomColor.dynamicTextColor)
                         }
                         .listRowBackground(CustomColor.LightBlue)
@@ -99,9 +106,7 @@ struct ProfilePageView: View {
                     }
 
                     Section {
-                        Button(action: {
-                            showLandingPage = true
-                        }) {
+                        Button(role: .cancel, action: signOut) {
                             Label("Log Out", systemImage: "rectangle.portrait.and.arrow.right")
                                 .foregroundColor(CustomColor.dynamicTextColor)
                         }
@@ -130,4 +135,5 @@ struct ProfilePageView: View {
 
 #Preview {
     ProfilePageView()
+        .environmentObject(AuthenticationViewModel())
 }
